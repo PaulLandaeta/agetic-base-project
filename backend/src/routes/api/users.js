@@ -1,9 +1,9 @@
 // var mongoose = require('mongoose');
 var router = require('express').Router();
 var passport = require('passport');
-// var User = mongoose.model('User');
+var models  = require('../../models');
 var auth = require('../auth');
-const generateJWT = require('../../models/User')
+const generateJWT = require('../../service/User')
 
 router.get('/user', auth.required, function(req, res, next){
     res.json({user: 'Paul Landaeta'})
@@ -37,6 +37,13 @@ router.post('/users/login', function(req, res, next){
   })(req, res, next);
 });
 
+  router.post('/user/create', auth.required, function(req, res) {
+    models.User.create({
+      username: req.body.username
+    }).then(function() {
+      res.redirect('/');
+    });
+  });
 /*
 router.put('/user', auth.required, function(req, res, next){
   User.findById(req.payload.id).then(function(user){

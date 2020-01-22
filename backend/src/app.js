@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(require('./routes'))
 
-const connection = mysql.createConnection({
+/*const connection = mysql.createConnection({
     host: 'localhost',
     user: 'paul',
     password: 'Control123!',
@@ -24,7 +24,7 @@ const connection = mysql.createConnection({
   connection.connect((err) => {
     if (err) throw err;
     console.log('Connected!');
-  });
+  });*/
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
