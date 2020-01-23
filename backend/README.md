@@ -1,18 +1,18 @@
+# Pasos de instalacion
 
-This repo is functionality complete
-
-# Getting started
-
-Corre el proyecto node localmente
+Correr el proyecto node localmente: 
 
 - Instalar node. 
 - `npm install` para instalar todas las dependencias requeridas.
-- Instalar MySql ([instrucciones](https://www.digitalocean.com/community/tutorials/como-instalar-mysql-en-ubuntu-18-04-es)) y ejecutar `MySql`
-- `npm run dev` para iniciar el servidor
+- Instalar MySql ([instrucciones](https://www.digitalocean.com/community/tutorials/como-instalar-mysql-en-ubuntu-18-04-es)) y ejecutar `MySql`.
+- `npm run dev` para iniciar el servidor.
 
-## Application Structure
+## Structura del proyecto
 
-- `app.js` - The entry point to our application. This file defines our express server and connects it to MongoDB using mongoose. It also requires the routes and models we'll be using in the application.
-- `config/` - This folder contains configuration for passport as well as a central location for configuration/environment variables.
-- `routes/` - This folder contains the route definitions for our API.
-- `models/` - This folder contains the schema definitions for our Mongoose models.
+- `app.js` - Este file inicializa el servidor
+- `config/` - Este folder se encarga de almacenar todas las configuraciones del proyecto
+- `routes/` - Este folder contiene las rutas definidas para nuestro API.
+- `models/` - Este folder contiene la definicion de los esquemas de MySql.
+- `controller/` - Este folder contiene los controladores para el uso de la base de datos.
+- `services/` - Este folder contiene la logica de negocios del proyecto.
+- `database/` - Este file se encarga de la conexion a la base de datos.
