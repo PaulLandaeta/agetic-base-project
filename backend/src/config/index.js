@@ -1,4 +1,4 @@
-module.exports = {
+export const config = {
     secret: 'secret',
     db: {
         database: 'agetic',
@@ -7,4 +7,4 @@ module.exports = {
         host: 'localhost',
         dialect: 'mysql'
     }
-};
+}

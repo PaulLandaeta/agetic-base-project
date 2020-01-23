@@ -1,9 +1,10 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const secret = require('./config').secret
-const app = express()
+import express  from 'express'
+import bodyParser from 'body-parser'
+import { config } from './config'
+import router from './routes'
 
-const mysql = require('mysql');
+const { secret } = config
+const app = express()
 
 // require('./models/User')
 // require('./models/Article')
@@ -13,18 +14,7 @@ require('./config/passport')
 app.set('token', secret)
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(require('./routes'))
-
-/*const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'paul',
-    password: 'Control123!',
-    database: 'agetic'
-  });
-  connection.connect((err) => {
-    if (err) throw err;
-    console.log('Connected!');
-  });*/
+app.use(router)
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

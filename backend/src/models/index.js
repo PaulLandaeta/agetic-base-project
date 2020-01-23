@@ -3,7 +3,7 @@ const path      = require('path');
 const basename  = path.basename(__filename);
 const Sequelize = require('sequelize')
 const dbConfig  = require('../config').db
-let db          = {}
+/* let db          = {}
 
 console.log(dbConfig)
 let sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {host:dbConfig.host,dialect: dbConfig.dialect});
@@ -27,4 +27,4 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-module.exports = db;
+module.exports = db;*/

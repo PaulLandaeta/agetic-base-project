@@ -1,6 +1,7 @@
-const jwt = require('jsonwebtoken')
-const secret = require('../config').secret
+import jwt from 'jsonwebtoken'
+import { config } from '../config'
 
+const { secret } = config
 const generateJWT = (id,username) => {
     var today = new Date();
     var exp = new Date(today);
@@ -13,4 +14,4 @@ const generateJWT = (id,username) => {
     }, secret);
 }
 
-module.exports = generateJWT;
+export default generateJWT;

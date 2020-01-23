@@ -1,17 +1,17 @@
-// var mongoose = require('mongoose');
-var router = require('express').Router();
-var passport = require('passport');
-var models  = require('../../models');
-var auth = require('../auth');
-const generateJWT = require('../../service/User')
 
-router.get('/user', auth.required, function(req, res, next){
-    res.json({user: 'Paul Landaeta'})
-  /*User.findById(req.payload.id).then(function(user){
-    if(!user){ return res.sendStatus(401); }
+import express from  'express'
+import passport  from 'passport'
+import models from '../../models'
+import auth from  '../auth'
+import generateJWT from '../../services/User'
+import { getUser } from '../../controller/user.controller'
+const router = express.Router()
 
-    return res.json({user: user.toAuthJSON()});
-  }).catch(next);*/ 
+router.get('/user/:username', auth.required, async function(req, res, next){
+    const { username } = req.params
+    const user = await getUser(username)
+    res.json(user)
+
 });
 
 router.post('/users/login', function(req, res, next){
