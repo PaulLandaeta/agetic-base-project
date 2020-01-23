@@ -6,9 +6,6 @@ import router from './routes'
 const { secret } = config
 const app = express()
 
-// require('./models/User')
-// require('./models/Article')
-// require('./models/Comment')
 require('./config/passport')
 
 app.set('token', secret)
