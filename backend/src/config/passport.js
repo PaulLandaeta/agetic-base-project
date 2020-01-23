@@ -1,19 +1,17 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-//var mongoose = require('mongoose');
-//var User = mongoose.model('User');
+import passport from 'passport'
+import passportLocal  from 'passport-local'
+import { getUser } from '../controller/user.controller'
+const LocalStrategy = passportLocal.Strategy;
+
 
 passport.use(new LocalStrategy({
-  usernameField: 'user[email]',
+  usernameField: 'user[username]',
   passwordField: 'user[password]'
-}, function(email, password, done) {
-  return done(null, {email, password});
-  /*
-  User.findOne({email: email}).then(function(user){
-    if(!user || !user.validPassword(password)){
-      return done(null, false, {errors: {'email or password': 'is invalid'}});
-    }
-
+}, async function(username, password, done) {
+  const user = await getUser(username)
+  //TODO: mejorar la verificacion
+  if(user && user.password === password){
     return done(null, user);
-  }).catch(done);*/
+  }
+  return done(null, false, {errors: {'email or password': 'is invalid'}});
 }));

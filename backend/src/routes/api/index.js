@@ -1,12 +1,11 @@
-const router = require('express').Router();
+import express from 'express'
+import user from './users'
 
-router.use('/', require('./users'));
-// router.use('/profiles', require('./profiles'));
-// router.use('/articles', require('./articles'));
-// router.use('/tags', require('./tags'));
+const router = express.Router()
+
+router.use('/', user)
 
 router.use(function(err, req, res, next){
-    console.log('IMMMMMM HERE')
     if(err.name === 'ValidationError'){
         return res.status(422).json({
         errors: Object.keys(err.errors).reduce(function(errors, key){
@@ -17,6 +16,6 @@ router.use(function(err, req, res, next){
         });
     }
   return next(err);
-});
+})
 
-module.exports = router;
+export default router;

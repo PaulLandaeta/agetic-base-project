@@ -8,3 +8,10 @@ export const getUser = async (username) => {
     })
     return user
 }
+
+export const updateUserToken = async (user) => {
+    const { id } = user
+    const currentUser = await User.findOne(id)
+    currentUser.token = user.token
+    await currentUser.save()
+}

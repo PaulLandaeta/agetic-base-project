@@ -1,10 +1,11 @@
 
 import express from  'express'
 import passport  from 'passport'
-import models from '../../models'
+import User from '../../models/user'
 import auth from  '../auth'
 import generateJWT from '../../services/User'
 import { getUser } from '../../controller/user.controller'
+
 const router = express.Router()
 
 router.get('/user/:username', auth.required, async function(req, res, next){
@@ -15,21 +16,23 @@ router.get('/user/:username', auth.required, async function(req, res, next){
 });
 
 router.post('/users/login', function(req, res, next){
-  if(!req.body.user.email){
-    return res.status(422).json({errors: {email: "can't be blank"}});
+  if(!req.body.user.username){
+    return res.status(422).json({errors: {username: "can't be blank"}});
   }
 
   if(!req.body.user.password){
     return res.status(422).json({errors: {password: "can't be blank"}});
   }
+  console.log('validation')
+  passport.authenticate('local', {session: false}, async function(err, user, info){
 
-  passport.authenticate('local', {session: false}, function(err, user, info){
     if(err){ return next(err); }
-
+    console.log(user)
     if(user){
       
-      user.token = generateJWT(1,user.email);
+      user.token = generateJWT(user.id,user.username);
       console.log(user.token)
+      await user.save()
       return res.json({user: user});
     } else {
       return res.status(422).json(info);
@@ -38,7 +41,7 @@ router.post('/users/login', function(req, res, next){
 });
 
   router.post('/user/create', auth.required, function(req, res) {
-    models.User.create({
+    User.create({
       username: req.body.username
     }).then(function() {
       res.redirect('/');
@@ -72,27 +75,6 @@ router.put('/user', auth.required, function(req, res, next){
   }).catch(next);
 });
 
-router.post('/users/login', function(req, res, next){
-  if(!req.body.user.email){
-    return res.status(422).json({errors: {email: "can't be blank"}});
-  }
-
-  if(!req.body.user.password){
-    return res.status(422).json({errors: {password: "can't be blank"}});
-  }
-
-  passport.authenticate('local', {session: false}, function(err, user, info){
-    if(err){ return next(err); }
-
-    if(user){
-      user.token = user.generateJWT();
-      return res.json({user: user.toAuthJSON()});
-    } else {
-      return res.status(422).json(info);
-    }
-  })(req, res, next);
-});
-
 router.post('/users', function(req, res, next){
   var user = new User();
 
@@ -105,4 +87,4 @@ router.post('/users', function(req, res, next){
   }).catch(next);
 });*/
 
-module.exports = router;
+export default router;
