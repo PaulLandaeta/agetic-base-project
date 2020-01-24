@@ -10,6 +10,7 @@ passport.use(new LocalStrategy({
 }, async function(username, password, done) {
   const user = await getUser(username)
   //TODO: mejorar la verificacion
+  console.log('PASSSWORRDDD', user.password)
   if(user && user.password === password){
     return done(null, user);
   }

@@ -1,9 +1,15 @@
 import express from 'express'
 import user from './users'
+import ingresos from './ingresos'
+import egresos from './egresos'
+import categorias from './categorias'
 
 const router = express.Router()
 
 router.use('/', user)
+router.use('/', ingresos)
+router.use('/', egresos)
+router.use('/', categorias)
 
 router.use(function(err, req, res, next){
     if(err.name === 'ValidationError'){
